@@ -1,4 +1,4 @@
-# StartPHP v0.0.3
+# StartPHP v0.3
 
 欢迎使用 StartPHP,本框架采用 MVC 架构模式开发，致力于打造出一款以轻量化、易上手、功能完善的高效 PHP 后端框架。
 
@@ -11,7 +11,7 @@
 [开源地址](https://github.com/catcatalpa/startphp)
 [开源协议](https://github.com/catcatalpa/StartPHP/blob/master/LICENSE)
 
-StartPHP v0.0.3 的更新日志如下：
+StartPHP v0.3 的更新日志如下：
 
 - 重写了框架整体运行逻辑
 - 「应用」机制正式上线
