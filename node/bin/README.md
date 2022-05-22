@@ -1,3 +1,0 @@
-## StartPHP
-StartPHP is a lightweight, easy-to-learn and well-functioning PHP backend development framework developed by CatCatalpa Vitality (Shanghai) Information Technology Co., Ltd.  The project is currently being improved and most of its features are still not functioning properly. Currently, it is only used for internal development and testing. Please do not install this project until we notify the project to be officially launched, or the latest version number is greater than 1.0, thank you!
-StartPHP Framework Development Documentation URL: https://document.startphp.catcatalpa.com
