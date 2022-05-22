@@ -8,8 +8,16 @@
 // +----------------------------------------------------------------------
 // | Author: company@catcatalpa.com
 // +----------------------------------------------------------------------
-//应用入口文件配置
-//[注意！]此模块未完全开发完成，后续版本会逐一完善，框架目前暂不支持更改应用入口文件！
-return[
-    
-];
+//命名空间匹配文件
+
+global $vendormap;
+$vendormap = array(
+    'app' => APP,
+    'model' => MODEL,
+    'startphp' => DIR,
+    'cache' => CACHE,
+    'config' => CONFIG,
+    'core' => CORE,
+    'premodel' => PREMODEL,
+    'vendor' => VENDOR
+    );

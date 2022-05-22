@@ -1,3 +1,4 @@
+{{controller=index}}
 <!DOCTYPE html>
 <html lang="zh-cn">
     <head>
@@ -10,17 +11,22 @@
                 font-size: 42px;
             }
             .div{
-                text-align: center;
-                position: fixed;
-                top: 50%;
+                /*text-align: center;*/
+                /*position: fixed;*/
+                /*top: 50%;*/
+                /*left: 50%;*/
+                /*width: 666px;*/
+                /*height: 400px;*/
+                /*margin-left: -333px;*/
+                /*margin-top: -200px;*/
+                /*display: flex;*/
+                /*justify-content: center;*/
+                /*align-items: center;*/
+                position: absolute;
                 left: 50%;
-                width: 666px;
-                height: 400px;
-                margin-left: -333px;
-                margin-top: -200px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                text-align: center;
             }
             .title {
         	    animation:move 1.5s infinite;
@@ -65,7 +71,7 @@
     <body>
         <div class="div">
             <div>
-                <p class="title">Welcome to {{%frame_work_name}} {{%version}}!</p>
+                <p class="title">Hello, {{%frame_work_name}} {{version}}</p>
                 <p class="move">ˇ</p>
             </div>
         </div>

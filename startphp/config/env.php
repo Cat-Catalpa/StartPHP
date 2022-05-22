@@ -13,4 +13,5 @@
 
 return[
     'parse_url_controller' => true//是否解析url中的controller
+    'session_auto_load' => false,   //是否自动开启Session，关闭后需用户手动执行session_start()函数启动Session会话
 ];

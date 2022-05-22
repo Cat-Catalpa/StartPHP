@@ -8,8 +8,9 @@
 // +----------------------------------------------------------------------
 // | Author: company@catcatalpa.com
 // +----------------------------------------------------------------------
-//StartPHP入口文件
+//第三方类库调用目录
 
-namespace startphp;
-include_once(__DIR__."/startphp/core/boot.php");
-new Run();
+global $composer;
+$composer = [
+    "medoo" => COMPOSER."medoo/vendor",
+    ];

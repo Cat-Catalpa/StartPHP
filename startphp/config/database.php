@@ -8,8 +8,16 @@
 // +----------------------------------------------------------------------
 // | Author: company@catcatalpa.com
 // +----------------------------------------------------------------------
-//StartPHP入口文件
+//数据库配置文件
 
-namespace startphp;
-include_once(__DIR__."/startphp/core/boot.php");
-new Run();
+return[
+    "dbtype" => "mysql",
+    "dbhost" => "localhost",
+    "dbname" => "testsql",
+    "dbuser" => "testsql",
+    "dbpass" => "eGwNNmJ5Cwrx5dN7",
+    "dbport" => "3306",
+    "dbtable" => "test",
+    "dbprefix" => "",
+    "dbfile" => "",
+    ];

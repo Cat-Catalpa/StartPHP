@@ -10,7 +10,8 @@
 // +----------------------------------------------------------------------
 //模板引擎
 
-class View_Model
+namespace premodel\view;
+class Pre_View_Model
 {
     private $data = array();
     private $files = "";
@@ -27,7 +28,7 @@ class View_Model
     public function __destruct()
     {
         $data = $this->data;
-        $parsefile = new Pre_ParseFile_Model();
+        $parsefile = new \premodel\ParseFile\Pre_ParseFile_Model();
         echo $content = $parsefile->parse(fread(fopen($this->files,"r"),filesize($this->files)));
     }
 }

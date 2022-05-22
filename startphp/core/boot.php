@@ -10,43 +10,29 @@
 // +----------------------------------------------------------------------
 //引导启动项
 
+namespace startphp;
 class Run {
-    function __construct($template){
+    function __construct($app = null){
+        ob_start();
+        global $allowToLoad;
+        $allowToLoad = true;
         require_once __DIR__.'/../config/config.php';
-        if (empty($template)) {
-            $template = TEMPLATE;
+        if (empty($app)) {
+            $app = TEMPLATE;
         }
         else{
-            $template = APP.$template;
+            $app = APP.$app."/";
         }
+        require_once(PREMODEL."autoload.php");
+        require_once(PREMODEL."throwerror.php");
         if (FRAME_WORK_NAME != "StartPHP") {
-            die('Error: An unauthorized commercial version of the framework was used(EC100001).');
+            new \premodel\Error\Pre_throwError_Model("Error: An unauthorized commercial version of the framework was used.",__FILE__,__LINE__,"EC100001","系统版权校验失败");
         }
-        spl_autoload_register(function ($className) {
-            if (strpos("_Controller",$className) == true) {
-                return;
-            }
-            if (strpos("Pre_",$className) != -1) {
-                $fileName = str_replace("Pre_","",$className);
-                $fileName = str_replace("_Model","",$fileName);
-                require_once(DIR."premodel/".strtolower($fileName).".php");
-            }
-            else{
-                list($filename , $suffix) = explode('_' , $className);
-                $file = ROOT . 'model/' . strtolower($filename) . '.php';
-                if (file_exists($file))
-                {
-                    require_once($file);        
-                }
-                else
-                {
-                    die("Error:File '$file' containing class '$className' not found.(EC100002)");
-                }
-            }
-        });
-        $error = new Pre_Error_Model();
+        require_once(CORE."database.php");
+        global $database;
+        $database = new \startphp\Database\Database($db['dbtype'],$db['dbhost'],$db['dbname'],$db['dbuser'],$db['dbpass'],$db['dbport'],$db['dbprefix'],$db['dbfile'],$db['dbtable']);
+        $error = new \premodel\Error\Pre_Error_Model();
         $error->init();
         require_once(CORE."/router.php");
     }
 }
-?>

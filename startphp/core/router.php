@@ -10,17 +10,21 @@
 // +----------------------------------------------------------------------
 //路由转发
 
+namespace startphp\router;
 $query_file = $_SERVER["REQUEST_URI"];
 if ($query_file == "/") {
     $query_file = "/index";
 }
-$url = new Pre_ParseUrl_Model();
+global $url;
+$url = new \premodel\ParseUrl\Pre_ParseUrl_Model();
 $url = $url->parse($query_file,$env['parse_url_controller']);
 if (!empty($url['ctrl'])) {
     $ctrl = $url['ctrl'];
-    require_once(APP.$ctrl['app']."/"."controller/".$ctrl['controller'].".php");
-    $name = ucwords($ctrl['controller'])."_Controller";
+    $name = "\\app\\".$ctrl['controller']."\\".ucfirst($ctrl['controller'])."\\".ucfirst($ctrl['controller'])."_Controller";
     $controller = new $name;
     $controller = call_user_func_array(array($controller,$ctrl["func"]),array($url["vars"]));
 }
-$view = new View_Model($url,$url['tplpath']."/");
+if (is_file(APP.$url['tplpath'].".php")) {
+    require_once(APP.$url['tplpath'].".php");
+}
+$view = new \premodel\view\Pre_View_Model($url,$url['tplpath']."/");

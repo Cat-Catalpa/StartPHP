@@ -10,8 +10,11 @@
 // +----------------------------------------------------------------------
 //Url信息解析
 
+namespace premodel\ParseUrl;
 class Pre_ParseUrl_Model{
-    function parse($url,$basic){
+    function parse($url){
+        global $env;
+        $basic = $env['parse_url_controller'];
         $path = array_filter(explode("/",$url));
         $parsepath = "";
         $parsefile = "";

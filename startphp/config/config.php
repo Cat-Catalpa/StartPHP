@@ -12,12 +12,15 @@
 
 //框架参数配置
 define('FRAME_WORK_NAME','StartPHP');
-define('VERSION',"V0.0.3");
+define('VERSION',"V0.4");
+define('APP_NAME',"StartPHP");
+define('APP_SUB_NAME',"一款轻量级、易上手、完善化的后端PHP开发框架");
 
 //系统基础配置
 define('ROOT',$_SERVER["DOCUMENT_ROOT"]."/");
 define('DIR',ROOT."startphp/");
 define('APP',ROOT.'app/');
+define('STATIC',ROOT.'static/');
 define('ADMIN',APP.'admin/');
 define('CACHE',DIR.'cache/');
 define('CONFIG',DIR.'config/');
@@ -25,21 +28,21 @@ define('CONTROLLER',DIR.'controller/');
 define('CORE',DIR.'core/');
 define('MODEL',ROOT.'model/');
 define('PREMODEL',DIR.'premodel/');
-define('VENDOR',ROOT.'vendor/');
+define('VENDOR',DIR.'vendor/');
 define('INSTALL',APP.'install/');
+define('COMPOSER',VENDOR.'composer/');
 define('HTTP',((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://');//站点http协议类型
 define('SITE_DOMAIN','101.43.57.133');//站点主域名，不需要加http前缀，也不要加斜杠等后缀
 
-//数据库参数配置
-define('DATABASE_TYPE','mysql');
-define('DATABASE_IP','localhost');
-define('DATABASE_NAME','startphp');
-define('DATABASE_ROOT','startphp');
-define('DATABASE_PASSWORD','');
-define('DATABASE_PREFIX','StartPHP_');
-define('TEMPLATENAME','index');//模板名称
+//模板引擎参数配置
+define('TEMPLATENAME','index');//默认应用名称名称
 define('TEMPLATE',APP.TEMPLATENAME.'/');
 
 //引入系统必要文件
+global $env;
+global $db;
 require_once(PREMODEL."error.php");
 $env = require_once(CONFIG."env.php");
+$db = require_once(CONFIG."database.php");
+require_once(CONFIG."composer.php");
+require_once(CONFIG."vars.php");
