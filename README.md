@@ -45,48 +45,6 @@
 - 更加安全的验证机制
 - 生命周期钩子机制(Hook)
 
-> StartPHP目录结构：
-
-根目录
-├─app                   应用目录
-│  └─index              示例应用目录
-│     ├─index.php       页面文件
-│     └─controller      controller文件目录 
-│
-├─model                 模型目录
-│
-├─node                  cli工具配置目录
-│  └─bin                配置文件目录【禁止修改】
-│
-├─node                  cli工具配置目录
-│
-├─public                静态资源存储目录
-│
-├─startphp              框架系统目录
-│  ├─cache              缓存文件目录
-│  ├─config             配置文件目录
-│  │  ├─config.php      系统基础配置文件
-│  │  ├─entrance.php    指定应用入口文件
-│  │  ├─vars.php        环境变量配置文件
-│  │  └─env.php         全局配置变量文件
-│  │
-│  ├─core               系统核心目录
-│  │  ├─boot.php        启动引导文件
-│  │  └─router.php      路由解析文件
-│  └─premodel           预装模型目录
-│     ├─error.php       错误捕捉文件
-│     ├─parsefile.php   页面路由文件
-│     ├─parseurl.php    网址解析文件
-│     └─view.php        视图渲染文件
-│
-├─vender                第三方依赖目录
-│
-├─robots.txt            爬虫检索协议
-├─.htaccess             apache伪静态规则文件
-├─.user.ini             php防跨站配置文件
-├─README.md             README文件
-├─LICENSE               Apache2.0开源协议文件
-└─index.php             框架入口文件
 
 > StartPHP在经授权后使用了以下项目的部分或全部代码用于实现框架部分功能
 
