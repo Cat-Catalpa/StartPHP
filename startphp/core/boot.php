@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | StartPHP
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 Cat Catalpa Vitality All rights reserved.
+// | Copyright (c) 20021~2022 Cat Catalpa Vitality All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -12,27 +12,42 @@
 
 namespace startphp;
 class Run {
-    function __construct($app = null){
+    function __construct(){
+        
+        //记录所有输出，以便在错误捕获后清空页面所有已渲染元素
         ob_start();
-        global $allowToLoad;
-        $allowToLoad = true;
+        
+        //记录系统运行状态
+        global $hasBeenRun;
+        $hasBeenRun['init'] = " - System_Init";
+        
+        //引入必要配置文件
         require_once __DIR__.'/../config/config.php';
-        if (empty($app)) {
-            $app = TEMPLATE;
-        }
-        else{
-            $app = APP.$app."/";
-        }
-        require_once(PREMODEL."autoload.php");
-        require_once(PREMODEL."throwerror.php");
-        if (FRAME_WORK_NAME != "StartPHP") {
-            new \premodel\Error\Pre_throwError_Model("Error: An unauthorized commercial version of the framework was used.",__FILE__,__LINE__,"EC100001","系统版权校验失败");
-        }
+        
+        //注册调试模式控制台日志输出文件
+        global $memoryAnalysis;
+        $memoryAnalysis = new \premodel\DevDebug\DevDebug();
+        
+        //注册ORM核心操作库
         require_once(CORE."database.php");
+        
         global $database;
+        global $session;
+        
+        //注册ORM实例对象
         $database = new \startphp\Database\Database($db['dbtype'],$db['dbhost'],$db['dbname'],$db['dbuser'],$db['dbpass'],$db['dbport'],$db['dbprefix'],$db['dbfile'],$db['dbtable']);
-        $error = new \premodel\Error\Pre_Error_Model();
+        
+        //注册异常错误捕获机制
+        $error = new \premodel\Error\Error();
         $error->init();
-        require_once(CORE."/router.php");
+        
+        //注册函数引入文件
+        require_once(CONFIG."functions.php");
+        
+        //注册函数全局化文件
+        require_once(CORE."helper.php");
+        
+        //初始化路由解析机制
+        require_once(CORE."router.php");
     }
 }

@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | StartPHP
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 Cat Catalpa Vitality All rights reserved.
+// | Copyright (c) 20021~2022 Cat Catalpa Vitality All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -12,7 +12,7 @@
 //[注意！]此模块未完全开发完成，后续版本会逐一完善！
 
 namespace premodel\ParseFile;
-class Pre_ParseFile_Model{
+class ParseFile{
     public $filecontent = "";
     protected $url = array();
     
@@ -27,6 +27,8 @@ class Pre_ParseFile_Model{
         $this->parsemodel();
         $this->parsepremodel();
         $this->parsevars();
+        global $hasBeenRun;
+        $hasBeenRun['tpl'] = " - Template_Engine_Init";
         return $this->filecontent;
     }
     
@@ -44,7 +46,7 @@ class Pre_ParseFile_Model{
             for ($i = 0; $i < count($matches,1)-1; $i++) {
                 $funcName = preg_replace('/({{controller=)(.*?)(}})/','$2',$matches[0][$i]);
                 $this->filecontent = str_replace($matches[0],"",$this->filecontent);
-                $className = "\\app\\".$this->url['tplpath']."\\".ucfirst($funcName)."\\".ucfirst($funcName)."_Controller";
+                $className = "\\app\\".$this->url['apppath']."\\".ucfirst($funcName)."\\".ucfirst($funcName);
                 $class = new $className;
                 call_user_func_array(array($class, $funcName),array($this->url['vars']));
             }
@@ -57,7 +59,7 @@ class Pre_ParseFile_Model{
             for ($i = 0; $i < count($matches,1)-1; $i++) {
                 $funcName = preg_replace('/({{model=)(.*?)(}})/','$2',$matches[0][$i]);
                 $this->filecontent = str_replace($matches[0],"",$this->filecontent);
-                $className = "\\model"."\\".$funcName."\\".ucfirst($funcName)."_Model";
+                $className = "\\model"."\\".$funcName."\\".ucfirst($funcName);
                 $class = new $className;
                 call_user_func_array(array($class, $funcName),array($this->url['vars']));
             }
@@ -70,7 +72,7 @@ class Pre_ParseFile_Model{
             for ($i = 0; $i < count($matches,1)-1; $i++) {
                 $funcName = preg_replace('/({{premodel=)(.*?)(}})/','$2',$matches[0][$i]);
                 $this->filecontent = str_replace($matches[0],"",$this->filecontent);
-                $className = "\\premodel"."\\".$funcName."\\"."Pre_".ucfirst($funcName)."_Model";
+                $className = "\\premodel"."\\".$funcName."\\".ucfirst($funcName);
                 $class = new $className;
                 call_user_func_array(array($class, $funcName),array($this->url['vars']));
             }

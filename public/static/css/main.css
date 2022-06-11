@@ -1,0 +1,42 @@
+@font-face {
+    font-family: Canaro Light DEMO;
+    src: local('Canaro Light DEMO'),
+    url('/public/static/fonts/Canaro-LightDEMO.ttf') format('truetype'),
+    url('/public/static/fonts/Canaro-LightDEMO.eot') format('embedded-opentype'),
+    url('/public/static/fonts/Canaro-LightDEMO.woff') format('woff'),
+    url('/public/static/fonts/Canaro-LightDEMO.svg') format('svg');
+    font-weight:normal;
+}
+p{
+    line-height: 1em;
+    font-size: 42px;
+}
+.div{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-60%);
+    text-align: center;
+}
+.title {
+    font-family: 'Canaro Light DEMO';
+    font-size: 5rem;
+    line-height: 50px;
+    color: #696969;
+}
+.version {
+    font-size: 15px;
+    color: #A9A9A9;
+}
+.nav {
+    List-style : "";
+}
+.nav li {
+    display:inline;
+    margin-right: 3rem;
+    white-space:nowrap;
+}
+.nav li a {
+    text-decoration: none;
+    color: gray;
+}

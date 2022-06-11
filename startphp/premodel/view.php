@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | StartPHP
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 Cat Catalpa Vitality All rights reserved.
+// | Copyright (c) 20021~2022 Cat Catalpa Vitality All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -11,7 +11,8 @@
 //模板引擎
 
 namespace premodel\view;
-class Pre_View_Model
+
+class View
 {
     private $data = array();
     private $files = "";
@@ -22,13 +23,20 @@ class Pre_View_Model
     {
         $this->data = $url;
         $this->files =  APP.$tplpath.$this->data['path'].$this->data['file'];
-        $this->tpl = CACHE."default.php";
     }
  
     public function __destruct()
     {
+        global $env;
         $data = $this->data;
-        $parsefile = new \premodel\ParseFile\Pre_ParseFile_Model();
+        global $hasBeenRun;
+        $parsefile = new \premodel\ParseFile\ParseFile();
         echo $content = $parsefile->parse(fread(fopen($this->files,"r"),filesize($this->files)));
+        $hasBeenRun['view'] = " - View_Init";
+        $hasBeenRun['end'] = " - System_End";
+        if ($env['debug_mode']) {
+            global $memoryAnalysis;
+            $memoryAnalysis->output();
+        }
     }
 }

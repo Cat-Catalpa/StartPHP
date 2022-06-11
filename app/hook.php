@@ -8,12 +8,24 @@
 // +----------------------------------------------------------------------
 // | Author: company@catcatalpa.com
 // +----------------------------------------------------------------------
-//命名空间匹配文件
-
-global $vendormap;
-$vendormap = array(
-    'app' => APP,
-    'model' => MODEL,
-    'startphp' => DIR,
-    'premodel' => PREMODEL,
-    );
+//生命周期钩子（行为拓展）定义文件
+return[
+    //应用初始化
+    "appInit" => [],
+    //自动加载每次被触发前
+    "brforeAutoload" => [],
+    //自动加载每次被触发后
+    "afterAutoload" => [],
+    //路由初始化
+    "routerInit" => [],
+    //模板引擎初始化
+    "viewInit" => [],
+    //匹配页面内容关键词前
+    "brforeParseFile" => [],
+    //页面渲染前
+    "brforeRender" => [],
+    //日志写入前
+    "brforeLogWrite" => [],
+    //应用销毁前
+    "appDestroy" => [],
+    ];

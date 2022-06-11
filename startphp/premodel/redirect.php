@@ -8,12 +8,20 @@
 // +----------------------------------------------------------------------
 // | Author: company@catcatalpa.com
 // +----------------------------------------------------------------------
-//命名空间匹配文件
+//重定向函数文件
 
-global $vendormap;
-$vendormap = array(
-    'app' => APP,
-    'model' => MODEL,
-    'startphp' => DIR,
-    'premodel' => PREMODEL,
-    );
+namespace premodel\Redirect;
+
+class Redirect {
+    public function redirect($targetUrl,$remember = false){
+        ob_end_clean();
+        if ($remember) {
+            global $url;
+            setcookie("lastRedirectUrl",$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+        }
+        header("Location: ".$targetUrl);
+    }
+    public function backoff($remember = false) {
+        $this->redirect($_COOKIE['lastRedirectUrl'],$remember);
+    }
+}

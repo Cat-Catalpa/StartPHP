@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | StartPHP
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 Cat Catalpa Vitality All rights reserved.
+// | Copyright (c) 20021~2022 Cat Catalpa Vitality All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -11,9 +11,13 @@
 //错误输出模型
 
 namespace premodel\Error;
-class Pre_throwError_Model{
-    function __construct($errstr,$errfile,$errline,$errorcode="System Error",$errtitle="系统因错误意外终止",$errno=2,$array = ""){
+class ThrowError{
+    function __construct($errstr,$errfile,$errline,$errorcode="System Error",$errno=2){
         ob_clean();
+        global $lang;
+        global $env;
+        if (isset($lang[$errorcode])) $errtitle = $lang[$errorcode];
+        else $errtitle = "系统因错误意外终止";
         echo("<head>
         <title>".$errtitle."</title>
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=no\">
@@ -52,6 +56,10 @@ class Pre_throwError_Model{
         echo("</div>");
         echo("</div>");
         echo("</body>");
-        exit();
+        if ($env['debug_mode']) {
+            global $memoryAnalysis;
+            $memoryAnalysis->output();
+        }
+        die();
     }
 }

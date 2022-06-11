@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | StartPHP
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 Cat Catalpa Vitality All rights reserved.
+// | Copyright (c) 20021~2022 Cat Catalpa Vitality All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -16,7 +16,9 @@ if ($query_file == "/") {
     $query_file = "/index";
 }
 global $url;
-$url = new \premodel\ParseUrl\Pre_ParseUrl_Model();
+global $hasBeenRun;
+$hasBeenRun['router'] = " - Router_Init";
+$url = new \premodel\ParseUrl\ParseUrl();
 $url = $url->parse($query_file,$env['parse_url_controller']);
 if (!empty($url['ctrl'])) {
     $ctrl = $url['ctrl'];
@@ -24,7 +26,7 @@ if (!empty($url['ctrl'])) {
     $controller = new $name;
     $controller = call_user_func_array(array($controller,$ctrl["func"]),array($url["vars"]));
 }
-if (is_file(APP.$url['tplpath'].".php")) {
-    require_once(APP.$url['tplpath'].".php");
+if (is_file(APP.$url['apppath'].".php")) {
+    require_once(APP.$url['apppath'].".php");
 }
-$view = new \premodel\view\Pre_View_Model($url,$url['tplpath']."/");
+$view = new \premodel\view\View($url,$url['apppath']."/");
