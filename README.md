@@ -35,10 +35,10 @@
 - 支持生成与记录错误日志
 - 更加安全的验证机制
 
-<<<<<<< Updated upstream
 =======
 > StartPHP目录结构：
 
+```
 根目录
 ├─app                   应用目录
 │  ├─index              示例应用目录
@@ -87,7 +87,7 @@
 ├─README.md             README文件
 ├─LICENSE               Apache2.0开源协议文件
 └─index.php             框架入口文件
->>>>>>> Stashed changes
+```
 
 > StartPHP在经授权后使用了以下项目的部分或全部代码用于实现框架部分功能
 
