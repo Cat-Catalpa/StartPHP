@@ -8,13 +8,12 @@
 // +----------------------------------------------------------------------
 // | Author: company@catcatalpa.com
 // +----------------------------------------------------------------------
-//首页默认调用的controller，仅做样例示范使用，访问http(s)://你的域名/index/index.php/index/index/index/?a=1&b=2以查看此控制器的效果
+//首页默认调用的controller
 
-namespace app\index\Index;
-class Index {
+namespace app\Index\Index;
+class Index extends \Controller {
         public function index($vars = array()) {
-            global $version;
-            global $database;
-            $version = session("version");
+            $this->version;
+            return $this->assign("version",VERSION)->getFileContent('Index/index');
         }
 }

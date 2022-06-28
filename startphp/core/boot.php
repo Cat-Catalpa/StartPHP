@@ -17,37 +17,27 @@ class Run {
         //记录所有输出，以便在错误捕获后清空页面所有已渲染元素
         ob_start();
         
+        //定义全局变量
+        global $hasBeenRun,$memoryAnalysis,$viewQueue;
+        
         //记录系统运行状态
-        global $hasBeenRun;
         $hasBeenRun['init'] = " - System_Init";
         
         //引入必要配置文件
-        require_once __DIR__.'/../config/config.php';
-        
-        //注册调试模式控制台日志输出文件
-        global $memoryAnalysis;
-        $memoryAnalysis = new \premodel\DevDebug\DevDebug();
-        
-        //注册ORM核心操作库
-        require_once(CORE."database.php");
-        
-        global $database;
-        global $session;
-        
-        //注册ORM实例对象
-        $database = new \startphp\Database\Database($db['dbtype'],$db['dbhost'],$db['dbname'],$db['dbuser'],$db['dbpass'],$db['dbport'],$db['dbprefix'],$db['dbfile'],$db['dbtable']);
-        
-        //注册异常错误捕获机制
-        $error = new \premodel\Error\Error();
-        $error->init();
-        
-        //注册函数引入文件
-        require_once(CONFIG."functions.php");
-        
-        //注册函数全局化文件
-        require_once(CORE."helper.php");
+        require_once dirname(__DIR__).'/../config/Config.php';
         
         //初始化路由解析机制
-        require_once(CORE."router.php");
+        $url = require_once(CORE."Router.php");
+        
+        //渲染页面
+        global $pageContent;
+        $content = $viewQueue->getMainView()->filter($pageContent)->render();
+        
+        //系统启动完成
+        $hasBeenRun['end'] = " - System_End";
+        hook_getClassName("appDestroy")->transfer([$memoryAnalysis]);
+        if ($env['debug_mode']) {
+            $memoryAnalysis->output();
+        }
     }
 }

@@ -74,25 +74,41 @@ class Database {
         $this->dbfile = $dbfile;
         $this->dbtable = $dbtable;
         if ($env['database_auto_load'] == true) {
-            try {
-                $dsn="$dbtype:host=$dbhost;dbname=$dbname";
-                $this->db = $dbh = new PDO($dsn, $dbuser, $dbpass, array(PDO::ATTR_PERSISTENT => true)); //初始化一个PDO对象
+            $this->init();
+        }
+        
+    }
+    
+    public function init() {
+        try {
+                $this->dsn=$this->dbtype.":host=".$this->dbhost.";dbname=".$this->dbname;
+                $hasBeenRun['database'] = " - Database_Init";
+                $this->db = $dbh = new PDO($this->dsn, $this->dbuser, $this->dbpass, array(PDO::ATTR_PERSISTENT => true)); //初始化一个PDO对象
                 $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//设置错误模式
             } catch (PDOException $e) {
                 new \premodel\Error\Pre_throwError_Model("Database Connect Error: " . $e->getMessage(),__FILE__,__LINE__,"EC100003");
             }
-            $sth = $this->db->prepare("SELECT * FROM ".$dbtable);
+            $sth = $this->db->prepare("SELECT * FROM ".$this->dbtable);
             $sth->execute();
             
             $data = $sth->fetchAll();
             if(count($data,0)>=0){
                 $key = array_values($data);
-                $stmt = $this->db->prepare("DESC ".$dbtable);
+                $stmt = $this->db->prepare("DESC ".$this->dbtable);
                 $stmt->execute();
                 $this->ts = array_flip($stmt->fetchAll(PDO::FETCH_COLUMN));
             }
-        }
-        $hasBeenRun['database'] = " - Database_Init";
+            return $this;
+    }
+    
+    public function setVars($varName,$value) {
+        eval("\$this->$varName = \"$value\";");
+        return $this;
+    }
+    
+    public function getVars($varName) {
+        eval("\$returnText = \"$varName\";");
+        return $returnText;
     }
     
     /*
@@ -117,7 +133,7 @@ class Database {
             return $this;
         }
         else{
-            new \premodel\Error\Pre_throwError_Model("Error:Field does not exist!",__FILE__,__LINE__,"EC100004");
+            new \ThrowError(__FILE__,__LINE__,"EC100004",$key);
             return false;
         }
     }
@@ -134,7 +150,7 @@ class Database {
             return($this);
         }
         else{
-            new \premodel\Error\Pre_throwError_Model("Error:The specified data table does not exist!",__FILE__,__LINE__,"EC100005","指定的数据表不存在！");
+            new \ThrowError(__FILE__,__LINE__,"EC100005",$table);
         }
     }
     

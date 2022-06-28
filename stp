@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+// +----------------------------------------------------------------------
+// | StartPHP
+// +----------------------------------------------------------------------
+// | Copyright (c) 20021~2022 Cat Catalpa Vitality All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: company@catcatalpa.com
+// +----------------------------------------------------------------------
+//控制台主命令
+
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/config/Config.php';
+ 
+use Symfony\Component\Console\Application;
+use Console\App\Commands\Version;
+use Console\App\Commands\ClearCache;
+use Console\App\Commands\Run;
+$app = new Application();
+$app->add(new Version());
+$app->add(new ClearCache());
+$app->add(new Run());
+$app->run();
